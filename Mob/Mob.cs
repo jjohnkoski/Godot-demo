@@ -17,13 +17,8 @@ public class Mob : RigidBody2D
         sprite.Animation = mobTypes[_random.Next(0, mobTypes.Length)];
     }
 
-    public void OnVisibilityNotifier2DScreenExited()
+    public void _on_VisibilityNotifier2D_screen_exited()
     {
         QueueFree();
     }
-
-    //  public override void _Process(float delta)
-    //  {
-    //      
-    //  }
 }

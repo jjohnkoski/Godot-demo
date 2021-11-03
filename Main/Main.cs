@@ -23,15 +23,21 @@ public class Main : Node
     {
         GetNode<Timer>("MobTimer").Stop();
         GetNode<Timer>("ScoreTimer").Stop();
+        GetNode<HUD>("HUD").ShowGameOver();
+        GetTree().CallGroup("mobs", "queue_free");
     }
 
-    public void NewGame()
+    public void new_game()
     {
         _score = 0;
 
         var player = GetNode<Player>("Player");
         var startPosition = GetNode<Position2D>("StartPosition");
         player.Start(startPosition.Position);
+
+        var hud = GetNode<HUD>("HUD");
+        hud.UpdateScore(_score);
+        hud.ShowMessage("AH! CATS!");
 
         GetNode<Timer>("StartTimer").Start();
     }
@@ -45,6 +51,7 @@ public class Main : Node
     public void _on_ScoreTimer_timeout()
     {
         _score++;
+        GetNode<HUD>("HUD").UpdateScore(_score);
     }
 
     public void _on_MobTimer_timeout()
